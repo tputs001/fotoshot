@@ -40,10 +40,10 @@ var search = (function(){
       var data = parsedImages.photos.photo
       for(var i = 0; i<data.length; i++){
         appendDom(data[i].url_m)
+        gmap.pushData(data[i])
+        gmap.showArray()
       }
     }
-    // gmap.lngLat.lat = undefined
-    // gmap.lngLat.lng = undefined
   }
 
   function appendDom(src){
