@@ -1,0 +1,35 @@
+#search {
+  margin-left: 50px;
+}
+
+#map {
+  width: 1258px;
+  height: 80%;
+}
+
+#filter {
+  background-color: #fff;
+  height: 80px;
+}
+
+.pac-container {
+  z-index: 2000;
+}
+
+.div-images {
+  display: inline-block;
+}
+
+.images {
+  width: 314.5px;
+  height: 300px;
+}
+
+.hero-header {
+  background-image: url('./img/nikon.jpg');
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  min-height: 800px;
+  padding: 7em;
+  color: #fff
+}
