@@ -34,7 +34,9 @@ var search = (function(){
     xhr.onload = function(event){
       parsedImages = JSON.parse(xhr.responseText)
       var data = parsedImages.photos.photo
-      for(var i = 0; i<data.length; i++){
+      var collection = _.sortBy(data, function(obj){return parseInt(obj.views)}).reverse()
+      for(var i = 0; i<collection.length; i++){
+        console.log(collection[i].views)
         appendDom(data[i].url_m)
         gmap.setMarkers(data[i].latitude, data[i].longitude)
       }

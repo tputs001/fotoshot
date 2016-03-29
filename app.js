@@ -38,7 +38,6 @@ app.post('/search', bodyParser, function(req, res){
               has_geo: 1,
               sort: "interestingness-desc",
               content_type: 1,
-              in_gallery: 1,
               min_taken_date: 1325376000,
               woe_id : woeID,
               extras: "url_m, views, tags, geo",
