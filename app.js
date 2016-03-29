@@ -2,6 +2,7 @@ var express = require('express');
 var bodyParser = require('body-parser').json();
 var request = require('request')
 var app = express();
+var imageData = [];
 
 app.use(express.static('./'))
 app.post('/search', bodyParser, function(req, res){
@@ -34,15 +35,18 @@ app.post('/search', bodyParser, function(req, res){
         qs: {
               api_key: '35a14d760960d79479d36e04d9a80c55',
               tags: req.body.tag,
-              has_geo: "1",
+              has_geo: 1,
               sort: "interestingness-desc",
+              content_type: 1,
+              in_gallery: 1,
+              min_taken_date: 1325376000,
               woe_id : woeID,
-              extras: "geo, url_m",
+              extras: "url_m, views, tags, geo",
               format: 'json',
               nojsoncallback: "?"
             }
       }, function(error, response, body){
-        console.log(body)
+        console.log(JSON.parse(body).photos.pages)
         res.send(body)
       })
     }

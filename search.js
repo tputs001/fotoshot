@@ -5,10 +5,10 @@ var search = (function(){
   var location = document.getElementById('location');
   var form = document.getElementById('search')
   var display = document.getElementById("images")
+  var parsedImages;
 
   //Binding Events
   form.addEventListener('submit', function(e){
-    var test = $('.pac-item-selected').length
     e.preventDefault();
     sendInput(tag, location)
   })
@@ -21,14 +21,10 @@ var search = (function(){
 
   //methods
   function sendInput(tag, location){
-    console.log(gmap)
     var input = {
       tag: tag.value,
       location: location.value,
-      latitude: gmap.lngLat.lat,
-      longitude: gmap.lngLat.lng
     }
-
     console.log(input)
 
     var xhr = new XMLHttpRequest()
@@ -36,14 +32,21 @@ var search = (function(){
     xhr.setRequestHeader('Content-type', 'application/json')
     xhr.send(JSON.stringify(input))
     xhr.onload = function(event){
-      var parsedImages = JSON.parse(xhr.responseText)
+      parsedImages = JSON.parse(xhr.responseText)
       var data = parsedImages.photos.photo
       for(var i = 0; i<data.length; i++){
         appendDom(data[i].url_m)
-        gmap.pushData(data[i])
-        gmap.showArray()
+        gmap.setMarkers(data[i].latitude, data[i].longitude)
       }
+      gmap.extendBounds()
+      scrolling()
     }
+  }
+
+  function scrolling(){
+    $('body').animate({
+        scrollTop: $('#images').offset().top
+    }, 500);
   }
 
   function appendDom(src){

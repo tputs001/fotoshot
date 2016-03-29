@@ -1,16 +1,7 @@
 var gmap = (function(){
   var location = document.getElementById('location');
-  var imageArray = []
+  var markerPosition = [];
   var map;
-  var lngLat = {}
-
-  function pushData(data){
-    imageArray.push(data)
-  }
-
-  function showArray(){
-    console.log(imageArray)
-  }
 
   function initMap(){
       map = new google.maps.Map(document.getElementById('map'), {
@@ -21,11 +12,9 @@ var gmap = (function(){
 
     var options ={types: ['(regions)'] }
     var autocomplete = new google.maps.places.Autocomplete(location, options)
+
     autocomplete.addListener('place_changed', function(){
-      console.log("autocomplete")
-      var place = autocomplete.getPlace();
-      lngLat.lat = place.geometry.location.lat()
-      lngLat.lng = place.geometry.location.lng()
+      console.log("triggered?")
     })
 
     google.maps.event.addDomListener(location,'keydown',function(e){
@@ -35,11 +24,30 @@ var gmap = (function(){
     });
   }
 
+  function setMarkers(lat, lng){
+    var myLatlng = new google.maps.LatLng(lat, lng)
+    var marker = new google.maps.Marker({
+      position: myLatlng,
+      title: "hello world!"
+    })
+    markerPosition.push(marker.position)
+    marker.setMap(map)
+  }
+
+  function extendBounds(){
+    var latlngBounds = new google.maps.LatLngBounds()
+    for(var i =0; i < markerPosition.length; i++){
+      latlngBounds.extend(markerPosition[i])
+    }
+    map.setCenter(latlngBounds.getCenter());
+    map.fitBounds(latlngBounds);
+  }
+
+
   return {
     initMap : initMap,
-    lngLat : lngLat,
-    pushData : pushData,
-    showArray: showArray
+    setMarkers: setMarkers,
+    extendBounds: extendBounds
   }
 
 })()
