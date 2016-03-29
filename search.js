@@ -19,7 +19,7 @@ var search = (function(){
     }
   })
 
-  //methods
+  //Methods
   function sendInput(tag, location){
     var input = {
       tag: tag.value,
@@ -40,15 +40,9 @@ var search = (function(){
         appendDom(data[i].url_m)
         gmap.setMarkers(data[i].latitude, data[i].longitude)
       }
-      gmap.extendBounds()
-      scrolling()
+      gmap.extendBounds();
+      animate.scrollDown();
     }
-  }
-
-  function scrolling(){
-    $('body').animate({
-        scrollTop: $('#images').offset().top
-    }, 500);
   }
 
   function appendDom(src){

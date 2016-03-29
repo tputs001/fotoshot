@@ -2,6 +2,7 @@
   <head>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css" rel="stylesheet">
     <link href="default.css" rel="stylesheet">
   </head>
   <body>
@@ -26,9 +27,13 @@
           </form>
           <div>
             <ul class="nav navbar-nav">
-              <li><a href=#>Map</a></li>
+              <li><a href="hi" id="mapButton">Map</a></li>
             </ul>
           </div>
+        </div>
+      </div>
+      <div class ="container-fluid">
+        <div class = "row" id="map">
         </div>
       </div>
     </nav>
@@ -43,22 +48,15 @@
         </div>
       </div>
     </div>
-    <div class ="container-fluid hidden">
-        <div class = "row">
-          <div class="col-md-12" id="filter">
-          </div>
-        </div>
-        <div class = "row" id="map">
-        </div>
-    </div>
     <div class="container-fluid">
       <div class="row" id="images">
       </div>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBf2R_-5o-jgt536KgVIFygGadUg2znD8Y&libraries=places&callback=gmap.initMap"
-async defer></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBf2R_-5o-jgt536KgVIFygGadUg2znD8Y&libraries=places&callback=gmap.initMap" async defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+    <script src="animation.js"></script>
     <script src="search.js"></script>
     <script src="gmap.js"></script>
   </body>
