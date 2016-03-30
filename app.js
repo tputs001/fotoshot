@@ -5,6 +5,9 @@ var app = express();
 var imageData = [];
 
 app.use(express.static('./'))
+app.use(express.static('./public/js'))
+app.use(express.static('./public/css'))
+
 app.post('/search', bodyParser, function(req, res){
   var location = req.body.location.split(',')
   var newLocation = location.length > 2 ? location[0] + ',' + location[1] : location.join(',')
@@ -39,7 +42,7 @@ app.post('/search', bodyParser, function(req, res){
               sort: "interestingness-desc",
               content_type: 1,
               min_taken_date: 1325376000,
-              per_page: 50,
+              per_page: 52,
               woe_id : woeID,
               extras: "url_m, views, tags, geo",
               format: 'json',
