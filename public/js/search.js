@@ -54,8 +54,15 @@ var search = (function(){
     container.appendChild(div)
   }
 
+  function clearDom(clearId){
+  while(clearId.hasChildNodes()){
+    clearId.removeChild(clearId.lastChild)
+  }
+}
+
   return {
-    appendDom : appendDom
+    appendDom : appendDom,
+    clearDom : clearDom
   }
 
 })()

@@ -13,6 +13,7 @@
 }
 
 #map-images {
+  padding-left: 50px;
   height: 700px;
   overflow: auto;
 }

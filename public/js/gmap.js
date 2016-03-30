@@ -16,7 +16,6 @@ var gmap = (function(){
   function initMap(){
       map = new google.maps.Map(document.getElementById('map'), {
       center: {lat: 37.09024, lng: -95.71289},
-      // scrollwheel: false,
       zoom: 4,
       zoomControl: true,
       zoomControlOptions: {
@@ -28,6 +27,7 @@ var gmap = (function(){
     var autocomplete = new google.maps.places.Autocomplete(location, options)
 
     if(markerObject.length !== 0){
+      search.clearDom(display)
       for(var i = 0; i<markerObject[0].length; i++){
         setMarkers(markerObject[0][i].latitude, markerObject[0][i].longitude)
         search.appendDom(display, markerObject[0][i].url_m, "div-images", "img-responsive map-images")
