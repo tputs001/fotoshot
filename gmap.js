@@ -1,13 +1,13 @@
 var gmap = (function(){
   var location = document.getElementById('location');
   var mapButton = document.getElementById('mapButton')
+  var markerObject = [];
   var markerPosition = [];
   var map;
 
   //Binding Events
   mapButton.addEventListener('click', function(e){
     e.preventDefault()
-    console.log('clicked')
     animate.toggleMap(e)
   })
 
@@ -15,12 +15,19 @@ var gmap = (function(){
   function initMap(){
       map = new google.maps.Map(document.getElementById('map'), {
       center: {lat: 37.09024, lng: -95.71289},
-      scrollwheel: false,
+      // scrollwheel: false,
       zoom: 4
     });
 
     var options ={types: ['(regions)'] }
     var autocomplete = new google.maps.places.Autocomplete(location, options)
+
+    if(markerObject.length !== 0){
+      for(var i = 0; i<markerObject[0].length; i++){
+        setMarkers(markerObject[0][i].latitude, markerObject[0][i].longitude)
+      }
+      extendBounds()
+    }
 
     autocomplete.addListener('place_changed', function(){
       console.log("triggered?")
@@ -44,9 +51,9 @@ var gmap = (function(){
     marker.setMap(map)
   }
 
-  // function imageData(){
-  //
-  // }
+  function getImages(data){
+    markerObject.push(data)
+  }
 
   function extendBounds(){
     var latlngBounds = new google.maps.LatLngBounds()
@@ -60,6 +67,7 @@ var gmap = (function(){
   return {
     initMap : initMap,
     setMarkers: setMarkers,
+    getImages: getImages,
     extendBounds: extendBounds
   }
 

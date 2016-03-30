@@ -45,7 +45,6 @@ app.post('/search', bodyParser, function(req, res){
               nojsoncallback: "?"
             }
       }, function(error, response, body){
-        console.log(JSON.parse(body).photos.pages)
         res.send(body)
       })
     }

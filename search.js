@@ -35,12 +35,10 @@ var search = (function(){
       parsedImages = JSON.parse(xhr.responseText)
       var data = parsedImages.photos.photo
       var collection = _.sortBy(data, function(obj){return parseInt(obj.views)}).reverse()
+      gmap.getImages(collection)
       for(var i = 0; i<collection.length; i++){
-        console.log(collection[i].views)
         appendDom(data[i].url_m)
-        gmap.setMarkers(data[i].latitude, data[i].longitude)
       }
-      gmap.extendBounds();
       animate.scrollDown();
     }
   }
