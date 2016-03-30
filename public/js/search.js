@@ -10,6 +10,7 @@ var search = (function(){
 
   //Binding Events
   form.addEventListener('submit', function(e){
+    console.log("ping")
     e.preventDefault();
     sendInput(tag, location)
   })
@@ -18,6 +19,11 @@ var search = (function(){
     if(e.keyCode == 13){
       e.preventDefault();
     }
+  })
+
+  document.body.addEventListener('click', function(e){
+    var target = e.target
+    if(target.nodeName == "IMG") { getImage(target.attributes.photoid.value, target.attributes.secret.value) }
   })
 
   //Methods
@@ -38,26 +44,38 @@ var search = (function(){
       collection = _.sortBy(data, function(obj){return parseInt(obj.views)}).reverse()
       gmap.getImages(collection)
       for(var i = 0; i<collection.length; i++){
-        appendDom(display, data[i].url_m, "div-images", "img-responsive images")
+        console.log(collection[i])
+        appendDom(display, data[i].url_m, "div-images", "img-responsive images", data[i].id, data[i].secret)
       }
       animate.scrollDown();
     }
   }
 
-  function appendDom(container, src, divClass, imgClass){
+  function getImage(photoId, secret){
+    var xhr = new XMLHttpRequest()
+    xhr.open('GET', '/exif/' + photoId +'/' + secret)
+    xhr.send(null)
+    xhr.onload = function(event){
+      console.log(xhr.responseText)
+    }
+  }
+
+  function appendDom(container, src, divClass, imgClass, photoId, secret){
     var div =  document.createElement('div');
     var img = document.createElement('img')
     div.className = divClass
     img.className= imgClass
+    img.setAttribute('photoId', photoId)
+    img.setAttribute('secret', secret)
     img.src = src
     div.appendChild(img)
     container.appendChild(div)
   }
 
   function clearDom(clearId){
-  while(clearId.hasChildNodes()){
-    clearId.removeChild(clearId.lastChild)
-  }
+    while(clearId.hasChildNodes()){
+      clearId.removeChild(clearId.lastChild)
+    }
 }
 
   return {

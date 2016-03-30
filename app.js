@@ -56,4 +56,21 @@ app.post('/search', bodyParser, function(req, res){
   )
 })
 
+app.get('/exif/:photoId/:secret', function(req, res){
+  var photo_id = req.params.photoId
+  var secret = req.params.secret
+  request({
+    url: 'https://api.flickr.com/services/rest/?method=flickr.photos.getExif',
+    qs: {
+        api_key: '35a14d760960d79479d36e04d9a80c55',
+        photo_id: photo_id,
+        secret: secret,
+        format: "json",
+        nojsoncallbacl: "?"
+      }
+  }, function(error, response, body){
+    console.log(body)
+  })
+})
+
 app.listen(8080, function(){console.log("listening to port 8080")})
