@@ -66,10 +66,10 @@ app.get('/exif/:photoId/:secret', function(req, res){
         photo_id: photo_id,
         secret: secret,
         format: "json",
-        nojsoncallbacl: "?"
+        nojsoncallback: "?"
       }
   }, function(error, response, body){
-    console.log(body)
+    res.send(body)
   })
 })
 

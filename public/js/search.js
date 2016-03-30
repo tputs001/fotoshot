@@ -5,6 +5,8 @@ var search = (function(){
   var location = document.getElementById('location');
   var form = document.getElementById('search')
   var display = document.getElementById("images")
+  var exif = document.getElementById("exif")
+  var exifObject;
   var collection = [];
   var parsedImages;
 
@@ -44,7 +46,6 @@ var search = (function(){
       collection = _.sortBy(data, function(obj){return parseInt(obj.views)}).reverse()
       gmap.getImages(collection)
       for(var i = 0; i<collection.length; i++){
-        console.log(collection[i])
         appendDom(display, data[i].url_m, "div-images", "img-responsive images", data[i].id, data[i].secret)
       }
       animate.scrollDown();
@@ -56,7 +57,19 @@ var search = (function(){
     xhr.open('GET', '/exif/' + photoId +'/' + secret)
     xhr.send(null)
     xhr.onload = function(event){
-      console.log(xhr.responseText)
+      exifObject = JSON.parse(xhr.responseText)
+      getExif(exifObject)
+    }
+  }
+
+  function getExif(object){
+    console.log(object)
+    var data = object.photo.exif
+    for(var i = 0; i<data.length; i++){
+      console.log(data[i])
+      if(data[i].label == "Exposure"){
+        console.log("Exposure is " + data[i].raw._content)
+      }
     }
   }
 
