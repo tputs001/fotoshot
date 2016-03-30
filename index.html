@@ -58,13 +58,39 @@
     </div>
     <div class="container-fluid">
       <div class="row">
-        <div class="col-md-12" id="exif">
-          SPECIFIC PRODUCT PAGE
+        <div class="col-md-6 col-md-offset-2" id="exif-image">
+        </div>
+        <div class="col-md-4" id="exif-specs">
+          <h3>Exposure: <span id = "exposure"></span></h3>
+          <h3>ISO: <span id="iso"></span></h3>
+          <h3>Aperture: <span id="aperture"></span></h3>
+        </div>
+      </div>
+    </div>
+
+    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+      Launch demo modal
+    </button>
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+          </div>
+          <div class="modal-body">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
         </div>
       </div>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBf2R_-5o-jgt536KgVIFygGadUg2znD8Y&libraries=places&callback=gmap.initMap" async defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
     <script src="animation.js"></script>

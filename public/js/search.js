@@ -14,7 +14,7 @@ var search = (function(){
   form.addEventListener('submit', function(e){
     console.log("ping")
     e.preventDefault();
-    sendInput(tag, location)
+    ajaxInput(tag, location)
   })
 
   location.addEventListener('keydown', function(e){
@@ -25,16 +25,15 @@ var search = (function(){
 
   document.body.addEventListener('click', function(e){
     var target = e.target
-    if(target.nodeName == "IMG") { getImage(target.attributes.photoid.value, target.attributes.secret.value) }
+    if(target.nodeName == "IMG") { ajaxExif(target.attributes.photoid.value, target.attributes.secret.value, e.srcElement.src) }
   })
 
   //Methods
-  function sendInput(tag, location){
+  function ajaxInput(tag, location){
     var input = {
       tag: tag.value,
       location: location.value,
     }
-    console.log(input)
 
     var xhr = new XMLHttpRequest()
     xhr.open('POST', '/search')
@@ -52,25 +51,46 @@ var search = (function(){
     }
   }
 
-  function getImage(photoId, secret){
+  function ajaxExif(photoId, secret, src){
     var xhr = new XMLHttpRequest()
     xhr.open('GET', '/exif/' + photoId +'/' + secret)
     xhr.send(null)
     xhr.onload = function(event){
       exifObject = JSON.parse(xhr.responseText)
-      getExif(exifObject)
+      getExif(exifObject, src)
     }
   }
 
-  function getExif(object){
-    console.log(object)
+  function getExif(object, src){
     var data = object.photo.exif
+    var exifImage = document.getElementById('exif-image')
+    var exposure;
+    var aperture;
+    var iso;
+
     for(var i = 0; i<data.length; i++){
-      console.log(data[i])
       if(data[i].label == "Exposure"){
-        console.log("Exposure is " + data[i].raw._content)
+        exposure = data[i].raw._content
+      } else if(data[i].label == "Aperture"){
+        aperture = data[i].raw._content
+      } else if(data[i].label == "ISO Speed"){
+        iso = data[i].raw._content
       }
     }
+    appendExif(exifImage, src, exposure, iso, aperture)
+  }
+
+  function appendExif(container, src, expo, iso, apert){
+    var exposure = document.getElementById('exposure')
+    var isoData = document.getElementById('iso')
+    var aperture = document.getElementById('aperture')
+    var img = document.createElement('img');
+    img.src = src
+    container.appendChild(img)
+    exposure.textContent = expo;
+    isoData.textContent = iso;
+    aperture.textContent = apert;
+
   }
 
   function appendDom(container, src, divClass, imgClass, photoId, secret){
@@ -89,7 +109,7 @@ var search = (function(){
     while(clearId.hasChildNodes()){
       clearId.removeChild(clearId.lastChild)
     }
-}
+  }
 
   return {
     appendDom : appendDom,
