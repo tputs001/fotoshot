@@ -6,7 +6,7 @@ var animate = (function(){
   }
 
   function toggleMap(e){
-    $('#map').slideToggle(1000, function(){
+    $('#map-container').slideToggle(1000, function(){
       gmap.initMap();
     });
     e.stopPropagation();

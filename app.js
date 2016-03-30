@@ -39,12 +39,14 @@ app.post('/search', bodyParser, function(req, res){
               sort: "interestingness-desc",
               content_type: 1,
               min_taken_date: 1325376000,
+              per_page: 50,
               woe_id : woeID,
               extras: "url_m, views, tags, geo",
               format: 'json',
               nojsoncallback: "?"
             }
       }, function(error, response, body){
+        console.log(JSON.parse(body).photos.photo.length)
         res.send(body)
       })
     }

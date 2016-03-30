@@ -5,6 +5,7 @@ var search = (function(){
   var location = document.getElementById('location');
   var form = document.getElementById('search')
   var display = document.getElementById("images")
+  var collection = [];
   var parsedImages;
 
   //Binding Events
@@ -34,22 +35,27 @@ var search = (function(){
     xhr.onload = function(event){
       parsedImages = JSON.parse(xhr.responseText)
       var data = parsedImages.photos.photo
-      var collection = _.sortBy(data, function(obj){return parseInt(obj.views)}).reverse()
+      collection = _.sortBy(data, function(obj){return parseInt(obj.views)}).reverse()
       gmap.getImages(collection)
       for(var i = 0; i<collection.length; i++){
-        appendDom(data[i].url_m)
+        appendDom(display, data[i].url_m, "div-images", "img-responsive images")
       }
       animate.scrollDown();
     }
   }
 
-  function appendDom(src){
+  function appendDom(container, src, divClass, imgClass){
     var div =  document.createElement('div');
     var img = document.createElement('img')
-    div.className = "div-images"
-    img.className= "img-responsive images"
+    div.className = divClass
+    img.className= imgClass
     img.src = src
     div.appendChild(img)
-    display.appendChild(div)
+    container.appendChild(div)
   }
+
+  return {
+    appendDom : appendDom
+  }
+
 })()

@@ -1,6 +1,7 @@
 var gmap = (function(){
   var location = document.getElementById('location');
   var mapButton = document.getElementById('mapButton')
+  var display = document.getElementById('map-images')
   var markerObject = [];
   var markerPosition = [];
   var map;
@@ -25,6 +26,7 @@ var gmap = (function(){
     if(markerObject.length !== 0){
       for(var i = 0; i<markerObject[0].length; i++){
         setMarkers(markerObject[0][i].latitude, markerObject[0][i].longitude)
+        search.appendDom(display, markerObject[0][i].url_m, "div-images", "img-responsive map-images")
       }
       extendBounds()
     }
