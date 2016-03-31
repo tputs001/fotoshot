@@ -6,13 +6,13 @@ var search = (function(){
   var form = document.getElementById('search')
   var display = document.getElementById("images")
   var exif = document.getElementById("exif")
+  var exifImage = document.getElementById('exif-image')
   var exifObject;
   var collection = [];
   var parsedImages;
 
   //Binding Events
   form.addEventListener('submit', function(e){
-    console.log("ping")
     e.preventDefault();
     ajaxInput(tag, location)
   })
@@ -45,7 +45,7 @@ var search = (function(){
       collection = _.sortBy(data, function(obj){return parseInt(obj.views)}).reverse()
       gmap.getImages(collection)
       for(var i = 0; i<collection.length; i++){
-        appendDom(display, data[i].url_m, "div-images", "img-responsive images", data[i].id, data[i].secret)
+        appendDom(display, data[i].url_l, "div-images", "img-responsive images", data[i].id, data[i].secret)
       }
       animate.scrollDown();
     }
@@ -57,13 +57,13 @@ var search = (function(){
     xhr.send(null)
     xhr.onload = function(event){
       exifObject = JSON.parse(xhr.responseText)
+      clearDom(exifImage)
       getExif(exifObject, src)
     }
   }
 
   function getExif(object, src){
     var data = object.photo.exif
-    var exifImage = document.getElementById('exif-image')
     var exposure;
     var aperture;
     var iso;
@@ -86,11 +86,11 @@ var search = (function(){
     var aperture = document.getElementById('aperture')
     var img = document.createElement('img');
     img.src = src
+    img.className = "image-lg"
     container.appendChild(img)
     exposure.textContent = expo;
     isoData.textContent = iso;
     aperture.textContent = apert;
-
   }
 
   function appendDom(container, src, divClass, imgClass, photoId, secret){
@@ -100,7 +100,10 @@ var search = (function(){
     img.className= imgClass
     img.setAttribute('photoId', photoId)
     img.setAttribute('secret', secret)
+    img.setAttribute('data-toggle', 'modal')
+    img.setAttribute('data-target', '#myModal')
     img.src = src
+
     div.appendChild(img)
     container.appendChild(div)
   }

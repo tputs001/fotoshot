@@ -74,7 +74,6 @@ var gmap = (function(){
     initMap : initMap,
     setMarkers: setMarkers,
     getImages: getImages,
-    extendBounds: extendBounds
   }
 
 })()

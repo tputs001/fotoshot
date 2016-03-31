@@ -23,6 +23,16 @@
   padding-top: 50px;
 }
 
+#exif-specs {
+  background-color: white;
+  margin-left: 20px;
+}
+
+.image-lg {
+  width: 800px;
+  height: 600px;
+}
+
 .pac-container {
   z-index: 2000;
 }
@@ -32,7 +42,6 @@
 }
 
 .images {
-  /*background-color: black;*/
   width: 320px;
   height: 300px;
   padding: 10px;
@@ -51,4 +60,20 @@
   min-height: 800px;
   padding: 7em;
   color: #fff
+}
+
+.modal-lg {
+  width: 1200px;
+}
+
+.modal-content {
+  /*background-color: gray;*/
+}
+
+.modal-body {
+  /*background-color: gray;*/
+}
+
+.modal-header {
+  /*background-color: gray;*/
 }

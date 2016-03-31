@@ -11,7 +11,6 @@ app.use(express.static('./public/css'))
 app.post('/search', bodyParser, function(req, res){
   var location = req.body.location.split(',')
   var newLocation = location.length > 2 ? location[0] + ',' + location[1] : location.join(',')
-  console.log(newLocation)
   var p1 = new Promise(
     function(resolve, reject){
       request({
@@ -32,7 +31,6 @@ app.post('/search', bodyParser, function(req, res){
   p1.then(
     function(body){
       var woeID = JSON.parse(body).places.place[0].woeid
-      console.log(woeID)
       request({
         url: 'https://api.flickr.com/services/rest/?method=flickr.photos.search',
         qs: {
@@ -44,12 +42,11 @@ app.post('/search', bodyParser, function(req, res){
               min_taken_date: 1325376000,
               per_page: 52,
               woe_id : woeID,
-              extras: "url_m, views, tags, geo",
+              extras: "url_l, views, tags, geo",
               format: 'json',
               nojsoncallback: "?"
             }
       }, function(error, response, body){
-        console.log(JSON.parse(body).photos.photo.length)
         res.send(body)
       })
     }
