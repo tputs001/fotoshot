@@ -27,17 +27,13 @@ var gmap = (function(){
     var autocomplete = new google.maps.places.Autocomplete(location, options)
 
     if(markerObject.length !== 0){
-      search.clearDom(display)
+      utility.clearDom(display)
       for(var i = 0; i<markerObject[0].length; i++){
         setMarkers(markerObject[0][i].latitude, markerObject[0][i].longitude)
-        search.appendDom(display, markerObject[0][i].url_l, "div-images", "img-responsive map-images", markerObject[0][i].id, markerObject[0][i].secret)
+        image.appendImg(display, markerObject[0][i].url_l, "div-images", "img-responsive map-images", markerObject[0][i].id, markerObject[0][i].secret)
       }
       extendBounds()
     }
-
-    autocomplete.addListener('place_changed', function(){
-      console.log("triggered?")
-    })
 
     google.maps.event.addDomListener(location,'keydown',function(e){
       if(e.keyCode===13 && $('.pac-item-selected').length == 0){
@@ -57,7 +53,7 @@ var gmap = (function(){
     marker.setMap(map)
   }
 
-  function getImages(data){
+  function grabImages(data){
     markerObject.push(data)
   }
 
@@ -73,7 +69,7 @@ var gmap = (function(){
   return {
     initMap : initMap,
     setMarkers: setMarkers,
-    getImages: getImages,
+    grabImages: grabImages,
   }
 
 })()

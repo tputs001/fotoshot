@@ -1,24 +1,17 @@
-var search = (function(){
+var image = (function(){
 
   //Caching the dom
   var tag = document.getElementById('tag');
   var location = document.getElementById('location');
-  var form = document.getElementById('search')
-  var display = document.getElementById("images")
-  var exifList = document.getElementById('list')
-  var collection = [];
-  var parsedImages;
+  var form = document.getElementById('search');
+  var display = document.getElementById("images");
+  var exifList = document.getElementById('list');
+  var exifImage = document.getElementById('exif-image')
 
   //Binding Events
   form.addEventListener('submit', function(e){
     e.preventDefault();
     ajaxInput(tag, location)
-  })
-
-  location.addEventListener('keydown', function(e){
-    if(e.keyCode == 13){
-      e.preventDefault();
-    }
   })
 
   document.body.addEventListener('click', function(e){
@@ -38,15 +31,28 @@ var search = (function(){
     xhr.setRequestHeader('Content-type', 'application/json')
     xhr.send(JSON.stringify(input))
     xhr.onload = function(event){
-      parsedImages = JSON.parse(xhr.responseText)
-      var data = parsedImages.photos.photo
-      collection = _.sortBy(data, function(obj){return parseInt(obj.views)}).reverse()
-      gmap.getImages(collection)
+      var parsedImages = JSON.parse(xhr.responseText)
+      var collection = _.sortBy(parsedImages.photos.photo, function(obj){return parseInt(obj.views)}).reverse()
       for(var i = 0; i<collection.length; i++){
-        appendDom(display, collection[i].url_l, "div-images", "img-responsive images", collection[i].id, collection[i].secret)
+        appendImg(display, collection[i].url_l, "div-images", "img-responsive images", collection[i].id, collection[i].secret)
       }
+      gmap.grabImages(collection)
       animate.scrollDown();
     }
+  }
+
+  function appendImg(container, src, divClass, imgClass, photoId, secret){
+    var div =  document.createElement('div');
+    var img = document.createElement('img')
+    div.className = divClass
+    img.className= imgClass
+    img.setAttribute('photoId', photoId)
+    img.setAttribute('secret', secret)
+    img.setAttribute('data-toggle', 'modal')
+    img.setAttribute('data-target', '#myModal')
+    img.src = src
+    div.appendChild(img)
+    container.appendChild(div)
   }
 
   function ajaxExif(photoId, secret, src){
@@ -54,14 +60,13 @@ var search = (function(){
     xhr.open('GET', '/exif/' + photoId +'/' + secret)
     xhr.send(null)
     xhr.onload = function(event){
-      exifObject = JSON.parse(xhr.responseText)
-      getExif(exifObject, src)
+      var object = JSON.parse(xhr.responseText)
+      getExif(object, src)
     }
   }
 
   function getExif(object, src){
     var data = object.photo.exif
-    var exifImage = document.getElementById('exif-image')
     var exifObject = {}
 
     for(var i = 0; i<data.length; i++){
@@ -74,8 +79,8 @@ var search = (function(){
       if(data[i].label == "ISO Speed"){ exifObject.iso = data[i].raw._content }
     }
 
-    clearDom(exifList)
-    clearDom(exifImage)
+    utility.clearDom(exifList)
+    utility.clearDom(exifImage)
     appendExif(exifImage, src, exifObject)
   }
 
@@ -86,41 +91,14 @@ var search = (function(){
     container.appendChild(img)
     for (var key in exifObject) {
       var li = document.createElement('li');
-      var listText = document.createTextNode(capitalizeFirstLetter(key) + ': ' + exifObject[key])
+      var listText = document.createTextNode(utility.capitalize(key) + ': ' + exifObject[key])
       li.className = "list-group-item"
       li.appendChild(listText)
       exifList.appendChild(li)
     }
   }
 
-  function appendDom(container, src, divClass, imgClass, photoId, secret){
-    var div =  document.createElement('div');
-    var img = document.createElement('img')
-    div.className = divClass
-    img.className= imgClass
-    img.setAttribute('photoId', photoId)
-    img.setAttribute('secret', secret)
-    img.setAttribute('data-toggle', 'modal')
-    img.setAttribute('data-target', '#myModal')
-    img.src = src
-
-    div.appendChild(img)
-    container.appendChild(div)
-  }
-
-  function clearDom(clearId){
-    while(clearId.hasChildNodes()){
-      clearId.removeChild(clearId.lastChild)
-    }
-  }
-
-  function capitalizeFirstLetter(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-  }
-
   return {
-    appendDom : appendDom,
-    clearDom : clearDom
+    appendImg : appendImg
   }
-
 })()

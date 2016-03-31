@@ -2,7 +2,6 @@ var express = require('express');
 var bodyParser = require('body-parser').json();
 var request = require('request')
 var app = express();
-var imageData = [];
 
 app.use(express.static('./'))
 app.use(express.static('./public/js'))
