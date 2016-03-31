@@ -25,12 +25,20 @@
 
 #exif-specs {
   background-color: white;
-  margin-left: 20px;
+  height: 600px;
+  margin-left: -10px;
+  border-radius: 0px 7px 7px 0px;
+}
+
+#list > li {
+  border: none !important;
+  list-style: none;
 }
 
 .image-lg {
   width: 800px;
   height: 600px;
+  border-radius: 7px 0px 0px 7px;
 }
 
 .pac-container {
@@ -66,14 +74,10 @@
   width: 1200px;
 }
 
-.modal-content {
-  /*background-color: gray;*/
+.modal-backdrop {
+  opacity: 0.8 !important
 }
 
-.modal-body {
-  /*background-color: gray;*/
-}
-
-.modal-header {
-  /*background-color: gray;*/
+.table td {
+    border: 0px !important;
 }

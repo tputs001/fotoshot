@@ -5,14 +5,12 @@ var search = (function(){
   var location = document.getElementById('location');
   var form = document.getElementById('search')
   var display = document.getElementById("images")
-  var exif = document.getElementById("exif")
-  var exifObject;
+  var exifList = document.getElementById('list')
   var collection = [];
   var parsedImages;
 
   //Binding Events
   form.addEventListener('submit', function(e){
-    console.log("ping")
     e.preventDefault();
     ajaxInput(tag, location)
   })
@@ -64,34 +62,35 @@ var search = (function(){
   function getExif(object, src){
     var data = object.photo.exif
     var exifImage = document.getElementById('exif-image')
-    var exposure;
-    var aperture;
-    var iso;
+    var exifObject = {}
 
     for(var i = 0; i<data.length; i++){
-      if(data[i].label == "Exposure"){
-        exposure = data[i].raw._content
-      } else if(data[i].label == "Aperture"){
-        aperture = data[i].raw._content
-      } else if(data[i].label == "ISO Speed"){
-        iso = data[i].raw._content
-      }
+      if(data[i].label == "Image Description"){ exifObject.description = data[i].raw._content }
+      if(data[i].label == "Creator"){ exifObject.author = data[i].raw._content }
+      if(data[i].label == "Make"){ exifObject.make = data[i].raw._content }
+      if(data[i].label == "Model"){ exifObject.model = data[i].raw._content }
+      if(data[i].label == "Exposure"){ exifObject.shutter = data[i].raw._content }
+      if(data[i].label == "Aperture"){ exifObject.aperture = data[i].raw._content }
+      if(data[i].label == "ISO Speed"){ exifObject.iso = data[i].raw._content }
     }
+
+    clearDom(exifList)
     clearDom(exifImage)
-    appendExif(exifImage, src, exposure, iso, aperture)
+    appendExif(exifImage, src, exifObject)
   }
 
-  function appendExif(container, src, expo, iso, apert){
-    var exposure = document.getElementById('exposure')
-    var isoData = document.getElementById('iso')
-    var aperture = document.getElementById('aperture')
+  function appendExif(container, src, exifObject){
     var img = document.createElement('img');
     img.src = src
     img.className = "image-lg"
     container.appendChild(img)
-    exposure.textContent = expo;
-    isoData.textContent = iso;
-    aperture.textContent = apert;
+    for (var key in exifObject) {
+      var li = document.createElement('li');
+      var listText = document.createTextNode(capitalizeFirstLetter(key) + ': ' + exifObject[key])
+      li.className = "list-group-item"
+      li.appendChild(listText)
+      exifList.appendChild(li)
+    }
   }
 
   function appendDom(container, src, divClass, imgClass, photoId, secret){
@@ -110,10 +109,13 @@ var search = (function(){
   }
 
   function clearDom(clearId){
-    console.log("helo");
     while(clearId.hasChildNodes()){
       clearId.removeChild(clearId.lastChild)
     }
+  }
+
+  function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
   }
 
   return {
