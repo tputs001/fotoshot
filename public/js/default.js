@@ -7,6 +7,11 @@ var image = (function(){
   var display = document.getElementById("images");
   var exifList = document.getElementById('list');
   var exifImage = document.getElementById('exif-image')
+  var shutter = document.getElementById("shutter")
+  var aperture = document.getElementById("aperture")
+  var model = document.getElementById("model")
+  var iso = document.getElementById("iso")
+  var author = document.getElementById("author")
 
   //Binding Events
   form.addEventListener('submit', function(e){
@@ -37,6 +42,7 @@ var image = (function(){
         appendImg(display, collection[i].url_l, "div-images", "img-responsive images", collection[i].id, collection[i].secret)
       }
       gmap.grabImages(collection)
+      gmap.initMap();
       animate.scrollDown();
     }
   }
@@ -61,22 +67,33 @@ var image = (function(){
     xhr.send(null)
     xhr.onload = function(event){
       var object = JSON.parse(xhr.responseText)
-      getExif(object, src)
+      if(object.stat == "fail"){
+        getExif("fail", src)
+      } else {
+        getExif(object, src)
+      }
     }
   }
 
   function getExif(object, src){
-    var data = object.photo.exif
-    var exifObject = {}
-
-    for(var i = 0; i<data.length; i++){
-      if(data[i].label == "Image Description"){ exifObject.description = data[i].raw._content }
-      if(data[i].label == "Creator"){ exifObject.author = data[i].raw._content }
-      if(data[i].label == "Make"){ exifObject.make = data[i].raw._content }
-      if(data[i].label == "Model"){ exifObject.model = data[i].raw._content }
-      if(data[i].label == "Exposure"){ exifObject.shutter = data[i].raw._content }
-      if(data[i].label == "Aperture"){ exifObject.aperture = data[i].raw._content }
-      if(data[i].label == "ISO Speed"){ exifObject.iso = data[i].raw._content }
+    if(object == "fail"){
+      var exifObject = {
+        model : "Not Available",
+        shutter: "Not Available",
+        aperture: "Not Available",
+        iso: "Not Available",
+        author: "Not Available",
+      }
+    } else {
+      var data = object.photo.exif
+      var exifObject = {}
+      for(var i = 0; i<data.length; i++){
+        if(data[i].label == "Creator"){ exifObject.author = data[i].raw._content }
+        if(data[i].label == "Model"){ exifObject.model = data[i].raw._content }
+        if(data[i].label == "Exposure"){ exifObject.shutter = "1/" + data[i].raw._content }
+        if(data[i].label == "Aperture"){ exifObject.aperture = "F/" + data[i].raw._content }
+        if(data[i].label == "ISO Speed"){ exifObject.iso = data[i].raw._content }
+      }
     }
 
     utility.clearDom(exifList)
@@ -88,14 +105,12 @@ var image = (function(){
     var img = document.createElement('img');
     img.src = src
     img.className = "image-lg"
+    model.textContent = exifObject.model
+    shutter.textContent = exifObject.shutter
+    aperture.textContent = exifObject.aperture
+    iso.textContent = exifObject.iso
+    author.textContent = exifObject.author
     container.appendChild(img)
-    for (var key in exifObject) {
-      var li = document.createElement('li');
-      var listText = document.createTextNode(utility.capitalize(key) + ': ' + exifObject[key])
-      li.className = "list-group-item"
-      li.appendChild(listText)
-      exifList.appendChild(li)
-    }
   }
 
   return {

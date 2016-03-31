@@ -27,12 +27,8 @@
   background-color: white;
   height: 600px;
   margin-left: -10px;
+  padding: 25px;
   border-radius: 0px 7px 7px 0px;
-}
-
-#list > li {
-  border: none !important;
-  list-style: none;
 }
 
 .image-lg {
