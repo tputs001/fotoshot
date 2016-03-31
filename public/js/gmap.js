@@ -30,7 +30,7 @@ var gmap = (function(){
       search.clearDom(display)
       for(var i = 0; i<markerObject[0].length; i++){
         setMarkers(markerObject[0][i].latitude, markerObject[0][i].longitude)
-        search.appendDom(display, markerObject[0][i].url_m, "div-images", "img-responsive map-images")
+        search.appendDom(display, markerObject[0][i].url_l, "div-images", "img-responsive map-images", markerObject[0][i].id, markerObject[0][i].secret)
       }
       extendBounds()
     }

@@ -6,13 +6,13 @@ var search = (function(){
   var form = document.getElementById('search')
   var display = document.getElementById("images")
   var exif = document.getElementById("exif")
-  var exifImage = document.getElementById('exif-image')
   var exifObject;
   var collection = [];
   var parsedImages;
 
   //Binding Events
   form.addEventListener('submit', function(e){
+    console.log("ping")
     e.preventDefault();
     ajaxInput(tag, location)
   })
@@ -45,7 +45,7 @@ var search = (function(){
       collection = _.sortBy(data, function(obj){return parseInt(obj.views)}).reverse()
       gmap.getImages(collection)
       for(var i = 0; i<collection.length; i++){
-        appendDom(display, data[i].url_l, "div-images", "img-responsive images", data[i].id, data[i].secret)
+        appendDom(display, collection[i].url_l, "div-images", "img-responsive images", collection[i].id, collection[i].secret)
       }
       animate.scrollDown();
     }
@@ -57,13 +57,13 @@ var search = (function(){
     xhr.send(null)
     xhr.onload = function(event){
       exifObject = JSON.parse(xhr.responseText)
-      clearDom(exifImage)
       getExif(exifObject, src)
     }
   }
 
   function getExif(object, src){
     var data = object.photo.exif
+    var exifImage = document.getElementById('exif-image')
     var exposure;
     var aperture;
     var iso;
@@ -77,6 +77,7 @@ var search = (function(){
         iso = data[i].raw._content
       }
     }
+    clearDom(exifImage)
     appendExif(exifImage, src, exposure, iso, aperture)
   }
 
@@ -109,6 +110,7 @@ var search = (function(){
   }
 
   function clearDom(clearId){
+    console.log("helo");
     while(clearId.hasChildNodes()){
       clearId.removeChild(clearId.lastChild)
     }
