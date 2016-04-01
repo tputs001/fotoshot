@@ -22,7 +22,9 @@ var image = (function(){
   document.body.addEventListener('click', function(e){
     var target = e.target
     if(target.nodeName == "IMG") { ajaxExif(target.attributes.photoid.value, target.attributes.secret.value, e.srcElement.src) }
-  })
+    console.log(e)
+    if(target.textContent == "Directions"){gmap.initMap('exif-image')}
+})
 
   //Methods
   function ajaxInput(tag, location){
@@ -45,6 +47,7 @@ var image = (function(){
       gmap.grabImages(collection)
       animate.setToggle(true)
       gmap.initMap();
+      gmap.initMarker();
       animate.scrollDown();
     }
   }

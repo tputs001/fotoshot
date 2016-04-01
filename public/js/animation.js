@@ -14,6 +14,7 @@ var animate = (function(){
 
     if(toToggle){
       gmap.initMap();
+      gmap.initMarker();
       toToggle = false
     }
     if(boolean){

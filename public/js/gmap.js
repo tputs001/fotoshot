@@ -14,8 +14,8 @@ var gmap = (function(){
   })
 
   //Methods
-  function initMap(){
-      map = new google.maps.Map(document.getElementById('map'), {
+  function initMap(id="map"){
+      map = new google.maps.Map(document.getElementById(id), {
       center: {lat: 37.09024, lng: -95.71289},
       zoom: 12,
       zoomControl: true,
@@ -23,10 +23,17 @@ var gmap = (function(){
           position: google.maps.ControlPosition.RIGHT_BOTTOM
       },
     });
-    console.log("initMap Ran")
     var options ={types: ['(regions)'] }
     var autocomplete = new google.maps.places.Autocomplete(location, options)
 
+    google.maps.event.addDomListener(location,'keydown',function(e){
+      if(e.keyCode===13 && $('.pac-item-selected').length == 0){
+        google.maps.event.trigger(this,'keydown',{keyCode:40})
+      }
+    });
+  }
+
+  function initMarker(){
     if(markerObject.length !== 0){
       markerTracker = [];
       utility.clearDom(display)
@@ -37,12 +44,6 @@ var gmap = (function(){
       animate.imageHover(markerTracker, map)
       extendBounds(map)
     }
-
-    google.maps.event.addDomListener(location,'keydown',function(e){
-      if(e.keyCode===13 && $('.pac-item-selected').length == 0){
-        google.maps.event.trigger(this,'keydown',{keyCode:40})
-      }
-    });
   }
 
   function setMarkers(lat, lng){
@@ -73,9 +74,10 @@ var gmap = (function(){
 
   return {
     initMap : initMap,
+    initMarker : initMarker,
     setMarkers: setMarkers,
     grabImages: grabImages,
-    extendBounds : extendBounds
+    extendBounds : extendBounds,
   }
 
 })()
