@@ -43,18 +43,33 @@
 
 .div-images {
   display: inline-block;
+  overflow: hidden;
+}
+
+.div-images:hover img {
+  -moz-transform: scale(1.1);
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
 }
 
 .images {
   width: 320px;
   height: 300px;
   padding: 10px;
+  cursor: hand;
+  -moz-transition: all 0.6s;
+  -webkit-transition: all 0.6s;
+  transition: all 0.6s;
 }
 
 .map-images {
   width: 150px;
   height: 150px;
-  padding: 5px
+  padding: 5px;
+  cursor: hand;
+  -moz-transition: all 0.6s;
+  -webkit-transition: all 0.6s;
+  transition: all 0.6s;
 }
 
 .hero-header {

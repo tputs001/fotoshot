@@ -36,12 +36,14 @@ var image = (function(){
     xhr.setRequestHeader('Content-type', 'application/json')
     xhr.send(JSON.stringify(input))
     xhr.onload = function(event){
+      utility.clearDom(display)
       var parsedImages = JSON.parse(xhr.responseText)
       var collection = _.sortBy(parsedImages.photos.photo, function(obj){return parseInt(obj.views)}).reverse()
       for(var i = 0; i<collection.length; i++){
         appendImg(display, collection[i].url_l, "div-images", "img-responsive images", collection[i].id, collection[i].secret)
       }
       gmap.grabImages(collection)
+      animate.setToggle(true)
       gmap.initMap();
       animate.scrollDown();
     }
@@ -90,7 +92,7 @@ var image = (function(){
       for(var i = 0; i<data.length; i++){
         if(data[i].label == "Creator"){ exifObject.author = data[i].raw._content }
         if(data[i].label == "Model"){ exifObject.model = data[i].raw._content }
-        if(data[i].label == "Exposure"){ exifObject.shutter = "1/" + data[i].raw._content }
+        if(data[i].label == "Exposure"){ exifObject.shutter = data[i].raw._content }
         if(data[i].label == "Aperture"){ exifObject.aperture = "F/" + data[i].raw._content }
         if(data[i].label == "ISO Speed"){ exifObject.iso = data[i].raw._content }
       }
