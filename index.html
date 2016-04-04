@@ -108,8 +108,16 @@
           </div>
           <ul class="list-group" id="list">
           </ul>
-          <button type="button" class="btn btn-default directions">Directions</button>
+          <button type="button" class="btn btn-default directions" data-toggle='modal' data-target = '#mapModal'>Directions</button>
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="mapModal" tabindex="-1" role="dialog" aria-labelledby="mapModalLabel">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="col-md-8" id="direction-map">
+        </div>
+        <div class="col-md-3" id="direction">
         </div>
       </div>
     </div>

@@ -39,6 +39,23 @@
   padding-right: 0px;
 }
 
+#direction-map {
+  width: 800px;
+  height: 600px;
+  border-radius: 7px 0px 0px 7px;
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+#direction {
+  background-color: white;
+  height: 600px;
+  margin-left: -10px;
+  padding: 25px;
+  border-radius: 0px 7px 7px 0px;
+  overflow: auto;
+}
+
 .image-lg {
   width: 800px;
   height: 600px;

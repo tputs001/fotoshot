@@ -21,9 +21,12 @@ var image = (function(){
 
   document.body.addEventListener('click', function(e){
     var target = e.target
-    if(target.nodeName == "IMG") { ajaxExif(target.attributes.photoid.value, target.attributes.secret.value, e.srcElement.src) }
-    console.log(e)
-    if(target.textContent == "Directions"){gmap.initMap('exif-image')}
+    if(target.nodeName == "IMG") {
+      ajaxExif(target.attributes.photoid.value, target.attributes.secret.value, e.srcElement.src);
+      gmap.getGeo(target.attributes.lat.value, target.attributes.lng.value);
+      $('body').css('overflow', 'hidden');
+    }
+    if(target.textContent == "Directions"){ mapModal() }
 })
 
   //Methods
@@ -42,7 +45,7 @@ var image = (function(){
       var parsedImages = JSON.parse(xhr.responseText)
       var collection = _.sortBy(parsedImages.photos.photo, function(obj){return parseInt(obj.views)}).reverse()
       for(var i = 0; i<collection.length; i++){
-        appendImg(display, collection[i].url_l, "div-images", "img-responsive images", collection[i].id, collection[i].secret)
+        appendImg(display, collection[i].url_l, "div-images", "img-responsive images", collection[i].id, collection[i].secret, collection[i].latitude, collection[i].longitude)
       }
       gmap.grabImages(collection)
       animate.setToggle(true)
@@ -52,13 +55,15 @@ var image = (function(){
     }
   }
 
-  function appendImg(container, src, divClass, imgClass, photoId, secret){
+  function appendImg(container, src, divClass, imgClass, photoId, secret, lat, lng){
     var div =  document.createElement('div');
     var img = document.createElement('img')
     div.className = divClass
     img.className= imgClass
     img.setAttribute('photoId', photoId)
     img.setAttribute('secret', secret)
+    img.setAttribute('lat', lat)
+    img.setAttribute('lng', lng)
     img.setAttribute('data-toggle', 'modal')
     img.setAttribute('data-target', '#myModal')
     img.src = src
@@ -116,6 +121,20 @@ var image = (function(){
     iso.textContent = exifObject.iso
     author.textContent = exifObject.author
     container.appendChild(img)
+  }
+
+  function mapModal(){
+    $('#myModal').modal('hide')
+    $('#mapModal').on('shown.bs.modal', function(){
+      $('body').css('overflow', 'hidden');
+      gmap.initMap('direction-map');
+      gmap.initDirection();
+      $(this).off('shown.bs.modal')
+    })
+    $('#mapModal').on('hidden.bs.modal', function(){
+      $('body').css('overflow', 'auto');
+      $(this).off('hidden.bs.modal')
+    })
   }
 
   return {

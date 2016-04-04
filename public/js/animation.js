@@ -17,6 +17,7 @@ var animate = (function(){
       gmap.initMarker();
       toToggle = false
     }
+
     if(boolean){
       $('html').css('overflow', 'hidden');
       boolean = false;
