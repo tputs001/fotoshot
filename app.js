@@ -1,6 +1,6 @@
 var express = require('express');
 var bodyParser = require('body-parser').json();
-var request = require('request')
+var request = require('request');
 var app = express();
 
 app.use(express.static('./'))
@@ -68,5 +68,20 @@ app.get('/exif/:photoId/:secret', function(req, res){
     res.send(body)
   })
 })
+
+app.get('/trending', function(req, res){
+  request({
+    url: 'https://api.flickr.com/services/rest/?method=flickr.interestingness.getList',
+    qs: {
+      api_key: '35a14d760960d79479d36e04d9a80c55',
+      extras: "url_l, tags, geo, views, date_taken, owner_name",
+      format: "json",
+      nojsoncallback: "?"
+    }
+  }, function(error, response, body){
+    res.send(body)
+  })
+})
+
 
 app.listen(8080, function(){console.log("listening to port 8080")})

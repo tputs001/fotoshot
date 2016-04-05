@@ -65,9 +65,8 @@ var gmap = (function(){
       }, function(response, status){
         if(status === google.maps.DirectionsStatus.OK){
           directionsDisplay.setDirections(response)
-          console.log(response)
         } else {
-          alert("Something went wrong.")
+          alert("Unfortunately, this is on another continent.")
         }
       });
     }
@@ -117,6 +116,8 @@ var gmap = (function(){
       lat : parseFloat(lat),
       lng : parseFloat(lng)
     }
+
+    console.log(latLng)
   }
 
   function extendBounds(map){
@@ -128,10 +129,20 @@ var gmap = (function(){
     map.fitBounds(latlngBounds);
   }
 
+  function mapModal(){
+    $('#myModal').modal('hide')
+    $('#mapModal').on('shown.bs.modal', function(){
+      $('body').addClass('modal-open');
+      initMap('direction-map');
+      initDirection();
+      $(this).off('shown.bs.modal')
+    })
+  }
+
   return {
     initMap : initMap,
     initMarker : initMarker,
-    initDirection: initDirection,
+    mapModal : mapModal,
     getGeo : getGeo,
     setMarkers: setMarkers,
     grabImages: grabImages,

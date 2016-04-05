@@ -25,7 +25,8 @@ var image = (function(){
       ajaxExif(target.attributes.photoid.value, target.attributes.secret.value, e.srcElement.src);
       gmap.getGeo(target.attributes.lat.value, target.attributes.lng.value);
     }
-    if(target.textContent == "Directions"){ mapModal() }
+    if(target.textContent == "Directions"){ gmap.mapModal() }
+    if(target.textContent == "Trending"){ajaxTrending(e)}
 })
 
   //Methods
@@ -122,14 +123,19 @@ var image = (function(){
     container.appendChild(img)
   }
 
-  function mapModal(){
-    $('#myModal').modal('hide')
-    $('#mapModal').on('shown.bs.modal', function(){
-      $('body').addClass('modal-open');
-      gmap.initMap('direction-map');
-      gmap.initDirection();
-      $(this).off('shown.bs.modal')
-    })
+  function ajaxTrending(e){
+    e.preventDefault()
+    var xhr = new XMLHttpRequest();
+    xhr.open('get', '/trending')
+    xhr.send(null);
+    xhr.onload = function(){
+      var data = JSON.parse(xhr.responseText)
+      var trending = data.photos.photo
+      for(var i = 0; i<trending.length; i++){
+        appendImg(display, trending[i].url_l, "div-images", "img-responseive images", trending[i].id, trending[i].secret, trending[i].latitude, trending[i].longitude)
+      }
+       animate.scrollDown()
+    }
   }
 
   return {
