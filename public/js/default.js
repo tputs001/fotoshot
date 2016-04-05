@@ -24,7 +24,6 @@ var image = (function(){
     if(target.nodeName == "IMG") {
       ajaxExif(target.attributes.photoid.value, target.attributes.secret.value, e.srcElement.src);
       gmap.getGeo(target.attributes.lat.value, target.attributes.lng.value);
-      $('body').css('overflow', 'hidden');
     }
     if(target.textContent == "Directions"){ mapModal() }
 })
@@ -126,14 +125,10 @@ var image = (function(){
   function mapModal(){
     $('#myModal').modal('hide')
     $('#mapModal').on('shown.bs.modal', function(){
-      $('body').css('overflow', 'hidden');
+      $('body').addClass('modal-open');
       gmap.initMap('direction-map');
       gmap.initDirection();
       $(this).off('shown.bs.modal')
-    })
-    $('#mapModal').on('hidden.bs.modal', function(){
-      $('body').css('overflow', 'auto');
-      $(this).off('hidden.bs.modal')
     })
   }
 
