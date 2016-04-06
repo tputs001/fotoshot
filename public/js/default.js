@@ -21,19 +21,24 @@ var image = (function(){
 
   document.body.addEventListener('click', function(e){
     var target = e.target
+    console.log(e)
     if(target.nodeName == "IMG") {
       ajaxExif(target.attributes.photoid.value, target.attributes.secret.value, e.srcElement.src);
       gmap.getGeo(target.attributes.lat.value, target.attributes.lng.value);
     }
     if(target.textContent == "Directions"){ gmap.mapModal() }
-    if(target.textContent == "Trending"){ajaxTrending(e)}
-})
+    if(target.textContent == "Trending"){ajaxTrending(e, "unsorted")}
+    if(target.textContent == "Sort By View"){ajaxTrending(e, "views")}
+    if(target.textContent == "Sort By Date"){ajaxTrending(e, "date")}
+    if(target.textContent == "Explore"){animate.toggleHidden('#location')}
+
+  })
 
   //Methods
   function ajaxInput(tag, location){
     var input = {
       tag: tag.value,
-      location: location.value,
+      location: location.value || "nothing",
     }
 
     var xhr = new XMLHttpRequest()
@@ -124,7 +129,7 @@ var image = (function(){
     container.appendChild(img)
   }
 
-  function ajaxTrending(e){
+  function ajaxTrending(e, sort){
     e.preventDefault()
     var xhr = new XMLHttpRequest();
     xhr.open('get', '/trending')
@@ -132,10 +137,18 @@ var image = (function(){
     xhr.onload = function(){
       utility.clearDom(display)
       $('#img-container').css('background-color', 'white').removeClass("text-center");
+      $('#filter').removeClass("hidden");
       var data = JSON.parse(xhr.responseText)
       var trending = data.photos.photo
-      for(var i = 0; i<trending.length; i++){
-        appendTrend(display, trending[i])
+      var sortedData = trending
+      if(sort == "unsorted"){var sortedData = trending}
+      if(sort == "views"){var sortedData = _.sortBy(trending, "views")}
+      if(sort == "date"){var sortedData = _.sortBy(trending, "datetaken")}
+
+      console.log(sortedData)
+
+      for(var i = 0; i<sortedData.length; i++){
+        appendTrend(display, sortedData[i])
       }
        animate.scrollDown()
     }

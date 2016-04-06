@@ -56,6 +56,13 @@
   overflow: auto;
 }
 
+#filter {
+  position: fixed;
+  top: 8px;
+  right: 300px;
+  z-index: 20000;
+}
+
 .image-lg {
   width: 800px;
   height: 600px;

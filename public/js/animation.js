@@ -1,6 +1,7 @@
 var animate = (function(){
   var boolean = true;
   var toToggle = true;
+  var hidden = true;
 
   function scrollDown(){
     $('body').animate({
@@ -50,6 +51,16 @@ var animate = (function(){
     )
   }
 
+  function toggleHidden(id){
+    if(hidden){
+      hidden=  false;
+      $(id).removeClass('hidden')
+    } else {
+      hidden = true;
+      $(id).addClass('hidden')
+    }
+  }
+
   function zoomIn(map, coordinate){
     map.setZoom(11);
     map.panTo(coordinate)
@@ -60,7 +71,8 @@ var animate = (function(){
     scrollDown : scrollDown,
     toggleMap : toggleMap,
     imageHover : imageHover,
-    setToggle : setToggle
+    setToggle : setToggle,
+    toggleHidden : toggleHidden
   }
 
 })()

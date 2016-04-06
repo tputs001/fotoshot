@@ -13,7 +13,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li><a href="#">Explore</a></li>
+            <li><a href="map" id="mapButton">Explore</a></li>
             <li><a href="/trending">Trending</a></li>
           </ul>
           <form class="navbar-form navbar-left" role="search" id="search">
@@ -21,15 +21,10 @@
               <input type="text" class="form-control" placeholder="Search" id="tag">
             </div>
             <div class="form-group">
-              <input type="text" class="form-control" placeholder="Location" id="location">
+              <input type="text" class="form-control hidden" placeholder="Location" id="location">
             </div>
             <button type="submit" class="btn btn-default">Submit</button>
           </form>
-          <div>
-            <ul class="nav navbar-nav">
-              <li><a href="hi" id="mapButton">Map</a></li>
-            </ul>
-          </div>
         </div>
       </div>
       <div class="container-fluid" id="map-container">
@@ -41,7 +36,7 @@
         </div>
       </div>
     </nav>
-    <div class="container-fluid">
+    <div class="container-fluid" id = "title">
       <div class="row hero-header">
         <div class="col-md-8">
           <h1>Photography has never been easier.</h1>
@@ -119,7 +114,16 @@
         </div>
       </div>
     </div>
-
+    <div class="btn-group hidden" id="filter">
+      <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Filter <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu">
+        <li><a class = "sort" href="#" id="sort-views">Sort By Most Viewed</a></li>
+        <li><a class = "sort" href="#" id="sort-date">Sort By Most Recent Date</a></li>
+        <li><a class = "sort" href="#" id="sort-old">Sort By Oldest Date</a></li>
+      </ul>
+    </div>
     <div class="container" id="trend">
     </div>
 
@@ -128,9 +132,9 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBf2R_-5o-jgt536KgVIFygGadUg2znD8Y&libraries=places&callback=gmap.initMap" async defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+    <script src="animation.js"></script>
     <script src="default.js"></script>
     <script src="utility.js"></script>
-    <script src="animation.js"></script>
     <script src="gmap.js"></script>
   </body>
 </html>
