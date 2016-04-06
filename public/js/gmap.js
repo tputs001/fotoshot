@@ -58,7 +58,6 @@ var gmap = (function(){
 
     function calculateAndDisplayRoute(directionsService, directionsDisplay, currentPos) {
       console.log(latLng)
-      console.log("does this run?")
       directionsService.route({
         origin: currentPos,
         destination: latLng,
@@ -76,7 +75,6 @@ var gmap = (function(){
       function(resolve, reject){
         var infoWindow = new google.maps.InfoWindow({map : map});
         if(navigator.geolocation){
-          console.log(navigator.geolocation)
           navigator.geolocation.getCurrentPosition(function(position){
             var currentPos = {
               lat: position.coords.latitude,

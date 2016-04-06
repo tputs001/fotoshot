@@ -22,13 +22,14 @@ var image = (function(){
 
   topTags.addEventListener('click', function(e){
     e.preventDefault();
-    console.log(e)
+    console.log(e.target.attributes.length)
+    ajaxInput(e.target.attributes.tag, "")
   })
 
   document.body.addEventListener('click', function(e){
     var target = e.target
-    console.log(e)
-    if(target.nodeName == "IMG") {
+    // console.log(e)
+    if(target.nodeName == "IMG" && target.attributes.length > 2) {
       ajaxExif(target.attributes.photoid.value, target.attributes.secret.value, e.srcElement.src);
       gmap.getGeo(target.attributes.lat.value, target.attributes.lng.value);
     }
@@ -45,6 +46,8 @@ var image = (function(){
       tag: tag.value,
       location: location.value || "nothing",
     }
+
+    console.log(input)
 
     var xhr = new XMLHttpRequest()
     xhr.open('POST', '/search')
