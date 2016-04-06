@@ -87,6 +87,25 @@
   transition: all 0.6s;
 }
 
+.trend {
+  width: 800px;
+  height: 600px;
+}
+
+.tags {
+  display: inline-block;
+  padding: 5px;
+  margin: 2px;
+  border: 1px solid black;
+  border-radius: 5px 5px 5px 5px;
+}
+
+.profile {
+  width: 64px;
+  height: 64px;
+}
+
+
 .map-images {
   width: 150px;
   height: 150px;

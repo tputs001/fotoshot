@@ -74,7 +74,7 @@ app.get('/trending', function(req, res){
     url: 'https://api.flickr.com/services/rest/?method=flickr.interestingness.getList',
     qs: {
       api_key: '35a14d760960d79479d36e04d9a80c55',
-      extras: "url_l, tags, geo, views, date_taken, owner_name",
+      extras: "url_l, tags, geo, views, date_taken, owner_name, icon_server, description, o_dims",
       format: "json",
       nojsoncallback: "?"
     }
