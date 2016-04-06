@@ -12,11 +12,17 @@ var image = (function(){
   var model = document.getElementById("model")
   var iso = document.getElementById("iso")
   var author = document.getElementById("author")
+  var topTags = document.getElementById("topTags")
 
   //Binding Events
   form.addEventListener('submit', function(e){
     e.preventDefault();
     ajaxInput(tag, location)
+  })
+
+  topTags.addEventListener('click', function(e){
+    e.preventDefault();
+    console.log(e)
   })
 
   document.body.addEventListener('click', function(e){
@@ -31,7 +37,6 @@ var image = (function(){
     if(target.textContent == "Sort By View"){ajaxTrending(e, "views")}
     if(target.textContent == "Sort By Date"){ajaxTrending(e, "date")}
     if(target.textContent == "Explore"){animate.toggleHidden('#location')}
-
   })
 
   //Methods
@@ -46,7 +51,7 @@ var image = (function(){
     xhr.setRequestHeader('Content-type', 'application/json')
     xhr.send(JSON.stringify(input))
     xhr.onload = function(event){
-      $('#img-container').css('background-color', 'black').addClass('text-center');
+      $('#img-container').addClass('text-center');
       utility.clearDom(display)
       var parsedImages = JSON.parse(xhr.responseText)
       var collection = _.sortBy(parsedImages.photos.photo, function(obj){return parseInt(obj.views)}).reverse()
@@ -136,7 +141,7 @@ var image = (function(){
     xhr.send(null);
     xhr.onload = function(){
       utility.clearDom(display)
-      $('#img-container').css('background-color', 'white').removeClass("text-center");
+      $('#img-container').removeClass("text-center");
       $('#filter').removeClass("hidden");
       var data = JSON.parse(xhr.responseText)
       var trending = data.photos.photo

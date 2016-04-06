@@ -19,7 +19,6 @@
 }
 
 #img-container {
-  background-color: black;
   padding-top: 50px;
 }
 
@@ -76,6 +75,13 @@
 .div-images {
   display: inline-block;
   overflow: hidden;
+}
+
+.popular > div >img {
+  width: 1250px;
+  height: 400px;
+  padding: 10px;
+  /*border: 1px solid black;*/
 }
 
 .div-images:hover img {

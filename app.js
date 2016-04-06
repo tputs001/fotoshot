@@ -106,6 +106,5 @@ app.get('/trending', function(req, res){
     res.send(body)
   })
 })
-
 var port = process.env.PORT || 1337;
 app.listen(port, function(){ console.log("Listening on port " + port)})
