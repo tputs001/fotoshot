@@ -30,7 +30,6 @@ app.post('/search', bodyParser, function(req, res){
   } else {
     var location = req.body.location.split(',')
     var newLocation = location.length > 2 ? location[0] + ',' + location[1] : location.join(',')
-    console.log("hello")
     var p1 = new Promise(
       function(resolve, reject){
         request({
@@ -51,7 +50,6 @@ app.post('/search', bodyParser, function(req, res){
     p1.then(
       function(body){
         var woeID = JSON.parse(body).places.place[0].woeid
-        console.log(woeID)
         request({
           url: 'https://api.flickr.com/services/rest/?method=flickr.photos.search',
           qs: {
