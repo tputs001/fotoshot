@@ -62,6 +62,10 @@
   z-index: 20000;
 }
 
+#space {
+  height: 50px;
+}
+
 .image-lg {
   width: 800px;
   height: 600px;
@@ -82,7 +86,7 @@
 }
 
 .popular > div > img {
-  width: 1250px;
+  width: 1350px;
   height: 400px;
   padding: 10px;
   cursor: hand;
@@ -120,11 +124,31 @@
   border-radius: 5px 5px 5px 5px;
 }
 
+.tags:hover {
+  cursor: hand;
+  border: 1px solid white;
+  color: white;
+  background-color: black;
+}
+
 .profile {
   width: 64px;
   height: 64px;
 }
 
+.page-down {
+  padding: 5px 16px;
+  border: 2px solid white;
+  border-radius: 100%!important;
+  font-size: 40px;
+  color: white;
+}
+
+.pageButton {
+  position: absolute;
+  top: 90%;
+  left: -8px;
+}
 
 .map-images {
   width: 150px;
@@ -140,7 +164,7 @@
   background-image: url('./img/nikon.jpg');
   background-repeat: no-repeat;
   background-size: 100% 100%;
-  min-height: 800px;
+  min-height: 750px;
   padding: 7em;
   color: #fff
 }

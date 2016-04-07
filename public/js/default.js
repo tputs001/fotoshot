@@ -13,6 +13,7 @@ var image = (function(){
   var iso = document.getElementById("iso")
   var author = document.getElementById("author")
   var topTags = document.getElementById("topTags")
+  var down = document.getElementById("down")
 
   //Binding Events
   form.addEventListener('submit', function(e){
@@ -23,6 +24,11 @@ var image = (function(){
   topTags.addEventListener('click', function(e){
     e.preventDefault();
     ajaxInput(e.target.attributes.tag, "")
+  })
+
+  down.addEventListener('click', function(e){
+    e.preventDefault();
+    animate.scrollDown2()
   })
 
   document.body.addEventListener('click', function(e){
@@ -36,6 +42,7 @@ var image = (function(){
     if(target.textContent == "Sort By View"){ajaxTrending(e, "views")}
     if(target.textContent == "Sort By Date"){ajaxTrending(e, "date")}
     if(target.textContent == "Explore"){animate.toggleHidden('#location')}
+    if(target.className == "tags"){ajaxInput(target.attributes.tag, "")}
   })
 
   //Methods
@@ -227,6 +234,7 @@ var image = (function(){
         var tagLi = document.createElement("li");
         var tagText = document.createTextNode(tags[i])
         tagLi.className = "tags"
+        tagLi.setAttribute("tag", tags[i])
         tagLi.appendChild(tagText)
         div2.appendChild(tagLi)
       }

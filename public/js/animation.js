@@ -9,6 +9,13 @@ var animate = (function(){
     }, 500);
   }
 
+  function scrollDown2(){
+    $('body').animate({
+        scrollTop: $('#down').offset().top
+    }, 500);
+  }
+
+
   function toggleMap(e){
     $('#map-container').slideToggle(1000, function(){
     })
@@ -72,7 +79,8 @@ var animate = (function(){
     toggleMap : toggleMap,
     imageHover : imageHover,
     setToggle : setToggle,
-    toggleHidden : toggleHidden
+    toggleHidden : toggleHidden,
+    scrollDown2 : scrollDown2
   }
 
 })()
