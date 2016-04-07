@@ -32,6 +32,7 @@ var image = (function(){
   })
 
   document.body.addEventListener('click', function(e){
+    console.log(e)
     var target = e.target
     if(target.nodeName == "IMG" && target.attributes.length > 2) {
       ajaxExif(target.attributes.photoid.value, target.attributes.secret.value, e.srcElement.src);
@@ -39,8 +40,9 @@ var image = (function(){
     }
     if(target.textContent == "Directions"){ gmap.mapModal() }
     if(target.textContent == "Trending"){ajaxTrending(e, "unsorted")}
-    if(target.textContent == "Sort By View"){ajaxTrending(e, "views")}
-    if(target.textContent == "Sort By Date"){ajaxTrending(e, "date")}
+    if(target.id == "views"){ajaxTrending(e, "views")}
+    if(target.id == "date"){ajaxTrending(e, "date")}
+    if(target.id == "old"){ajaxTrending(e, "old")}
     if(target.textContent == "Explore"){animate.toggleHidden('#location')}
     if(target.className == "tags"){ajaxInput(target.attributes.tag, "")}
   })
@@ -153,8 +155,9 @@ var image = (function(){
       var trending = data.photos.photo
       var sortedData = trending
       if(sort == "unsorted"){var sortedData = trending}
-      if(sort == "views"){var sortedData = _.sortBy(trending, "views")}
-      if(sort == "date"){var sortedData = _.sortBy(trending, "datetaken")}
+      if(sort == "views"){sortedData = _.sortBy(trending, function(obj){return parseInt(obj.views)}).reverse()}
+      if(sort == "date"){sortedData = _.sortBy(trending, "datetaken").reverse()}
+      if(sort == "old"){sortedData = _.sortBy(trending, "datetaken")}
 
       console.log(sortedData)
 
