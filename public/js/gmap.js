@@ -2,18 +2,12 @@ var gmap = (function(){
   var location = document.getElementById('location');
   var mapButton = document.getElementById('mapButton')
   var display = document.getElementById('map-images')
-  var rightPanel = document.getElementById("direction")
+  var rightPanel = document.getElementById("right-panel")
   var markerObject = [];
   var markerPosition = [];
   var markerTracker = [];
   var latLng = {};
   var map;
-
-  //Binding Events
-  mapButton.addEventListener('click', function(e){
-    e.preventDefault()
-    animate.toggleMap()
-  })
 
   //Methods
   function initMap(id="map"){
@@ -54,10 +48,9 @@ var gmap = (function(){
     var currentPos;
     utility.clearDom(rightPanel)
     directionsDisplay.setMap(map);
-    directionsDisplay.setPanel(document.getElementById('direction'));
+    directionsDisplay.setPanel(rightPanel);
 
     function calculateAndDisplayRoute(directionsService, directionsDisplay, currentPos) {
-      console.log(latLng)
       directionsService.route({
         origin: currentPos,
         destination: latLng,
@@ -134,7 +127,7 @@ var gmap = (function(){
     $('#myModal').modal('hide')
     $('#mapModal').on('shown.bs.modal', function(){
       $('body').addClass('modal-open');
-      initMap('direction-map');
+      initMap('left-panel');
       initDirection();
       $(this).off('shown.bs.modal')
     })

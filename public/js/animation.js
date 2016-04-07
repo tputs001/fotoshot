@@ -3,23 +3,16 @@ var animate = (function(){
   var toToggle = true;
   var hidden = true;
 
-  function scrollDown(){
+  function scrollDown(e, id){
+    e.preventDefault()
     $('body').animate({
-        scrollTop: $('#img-container').offset().top
+        scrollTop: $(id).offset().top
     }, 500);
   }
-
-  function scrollDown2(){
-    $('body').animate({
-        scrollTop: $('#down').offset().top
-    }, 500);
-  }
-
 
   function toggleMap(e){
-    $('#map-container').slideToggle(1000, function(){
-    })
-
+    e.preventDefault()
+    $('#map-container').slideToggle(1000)
     if(toToggle){
       gmap.initMap();
       gmap.initMarker();
@@ -79,8 +72,7 @@ var animate = (function(){
     toggleMap : toggleMap,
     imageHover : imageHover,
     setToggle : setToggle,
-    toggleHidden : toggleHidden,
-    scrollDown2 : scrollDown2
+    toggleHidden : toggleHidden
   }
 
 })()
