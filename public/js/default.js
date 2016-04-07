@@ -14,11 +14,13 @@ var image = (function(){
   var author = document.getElementById("author")
   var topTags = document.getElementById("topTags")
   var down = document.getElementById("down")
+  var title = document.getElementById("title")
 
   //Binding Events
   form.addEventListener('submit', function(e){
     e.preventDefault();
     ajaxInput(tag, location)
+    state('search')
   })
 
   topTags.addEventListener('click', function(e){
@@ -39,11 +41,11 @@ var image = (function(){
       gmap.getGeo(target.attributes.lat.value, target.attributes.lng.value);
     }
     if(target.textContent == "Directions"){ gmap.mapModal() }
-    if(target.textContent == "Trending"){ajaxTrending(e, "unsorted")}
+    if(target.textContent == "Trending"){ajaxTrending(e, "unsorted"); state("trending")}
     if(target.id == "views"){ajaxTrending(e, "views")}
     if(target.id == "date"){ajaxTrending(e, "date")}
     if(target.id == "old"){ajaxTrending(e, "old")}
-    if(target.textContent == "Explore"){animate.toggleHidden('#location')}
+    if(target.textContent == "Explore"){animate.toggleHidden('#location'); state("explore")}
     if(target.className == "tags"){ajaxInput(target.attributes.tag, "")}
   })
 
@@ -149,8 +151,7 @@ var image = (function(){
     xhr.send(null);
     xhr.onload = function(){
       utility.clearDom(display)
-      $('#img-container').removeClass("text-center");
-      $('#filter').removeClass("hidden");
+      $('#img-container').removeClass("text-center")
       var data = JSON.parse(xhr.responseText)
       var trending = data.photos.photo
       var sortedData = trending
@@ -164,7 +165,7 @@ var image = (function(){
       for(var i = 0; i<sortedData.length; i++){
         appendTrend(display, sortedData[i])
       }
-       animate.scrollDown()
+      //  animate.scrollDown()
     }
   }
 
@@ -241,6 +242,20 @@ var image = (function(){
         tagLi.appendChild(tagText)
         div2.appendChild(tagLi)
       }
+    }
+  }
+
+  function state(id){
+    if(id == "trending"){
+      $('#topTags').fadeOut('slow')
+      $('#title').fadeOut('slow')
+      $('#filter').removeClass("hidden");
+    } else if(id == "search"){
+      $('#topTags').fadeOut('slow')
+      $('#filter').addClass("hidden");
+      // $('#title').fadeOut('slow')
+    } else if(id == "explore"){
+      $('#filter').addClass("hidden");
     }
   }
 
