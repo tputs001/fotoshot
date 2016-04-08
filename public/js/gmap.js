@@ -21,7 +21,6 @@ var gmap = (function(){
     });
     var options ={types: ['(regions)'] }
     var autocomplete = new google.maps.places.Autocomplete(location, options)
-
     google.maps.event.addDomListener(location,'keydown',function(e){
       if(e.keyCode===13 && $('.pac-item-selected').length == 0){
         google.maps.event.trigger(this,'keydown',{keyCode:40})
@@ -79,7 +78,7 @@ var gmap = (function(){
             resolve(currentPos)
           })
         } else {
-          console.log("step fail")
+          alert("Something went wrong."))
         }
       }
     )

@@ -23,7 +23,6 @@ var image = (function(){
   })
 
   topTags.addEventListener('click', function(e){
-    console.log(e)
     if(e.target.nodeName == 'H1'){
       ajaxInput(e, e.target.textContent)
     } else {
@@ -53,7 +52,6 @@ var image = (function(){
       tag: tag,
       location: location || 'nothing'
     }
-
     var xhr = new XMLHttpRequest()
     xhr.open('POST', '/search')
     xhr.setRequestHeader('Content-type', 'application/json')
@@ -125,8 +123,6 @@ var image = (function(){
         if(data[i].label == 'ISO Speed'){ exif.iso = data[i].raw._content }
       }
     }
-    console.log(src)
-
     utility.clearDom(largeImg)
     appendExif(largeImg, src, exif)
   }
@@ -184,7 +180,7 @@ var image = (function(){
     var flickr = document.createElement('h5')
     var flickrProfile = document.createElement('a')
     var flickrProfileText = document.createTextNode('My Flickr Profile')
-
+    
     profile.className = 'img-circle media-object profile'
     profile.src = "http://farm" + object.iconfarm + ".staticflickr.com/" + object.iconserver + "/buddyicons/" + object.owner + ".jpg"
     img.src = object.url_l;
@@ -252,9 +248,7 @@ var image = (function(){
   }
 
   $(document).ready(function (){
-    console.log("run?")
     $("#checkContainer").hide().show("slide", { direction: "left" }, 1800);
-
   })
 
   return {
