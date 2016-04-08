@@ -66,7 +66,6 @@ var animate = (function(){
     map.panTo(coordinate)
   }
 
-
   return {
     scrollDown : scrollDown,
     toggleMap : toggleMap,

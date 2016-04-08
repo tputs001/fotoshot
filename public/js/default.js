@@ -18,18 +18,23 @@ var image = (function(){
   //Binding Events
   form.addEventListener('submit', function(e){
     e.preventDefault()
-    ajaxInput(e, tag, location)
+    ajaxInput(e, tag.value, location.value)
     state('search')
   })
 
   topTags.addEventListener('click', function(e){
-    ajaxInput(e, e.target.attributes.tag, '')
+    console.log(e)
+    if(e.target.nodeName == 'H1'){
+      ajaxInput(e, e.target.textContent)
+    } else {
+      ajaxInput(e, e.target.attributes.tag.value)
+    }
   })
 
   document.body.addEventListener('click', function(e){
     var target = e.target
     if(target.nodeName == 'IMG' && !(utility.hasClass(e, 'pop'))) {
-      ajaxExif(target.attributes.photoid.value, target.attributes.secret.value, e.srcElement.src);
+      ajaxExif(target.attributes.photoid.value, target.attributes.secret.value, target.attributes.lg.value);
       gmap.getGeo(target.attributes.lat.value, target.attributes.lng.value);
     }
     if(target.id == 'direction'){ gmap.mapModal() }
@@ -38,15 +43,15 @@ var image = (function(){
     if(target.id == 'date'){ajaxTrending(e, 'date')}
     if(target.id == 'old'){ajaxTrending(e, 'old')}
     if(target.id == 'mapButton'){animate.toggleHidden('#location'); animate.toggleMap(e); state('explore')}
-    if(target.className == 'tags'){ajaxInput(e, target.attributes.tag, "")}
+    if(target.className == 'tags'){ajaxInput(e, target.attributes.tag.value)}
     if(utility.hasClass(e, 'pageDown')){animate.scrollDown(e, '#down')}
   })
 
   //Methods
   function ajaxInput(e, tag, location){
     var input = {
-      tag: tag.value,
-      location: location.value || 'nothing',
+      tag: tag,
+      location: location || 'nothing'
     }
 
     var xhr = new XMLHttpRequest()
@@ -59,7 +64,7 @@ var image = (function(){
       var parsedImages = JSON.parse(xhr.responseText)
       var collection = _.sortBy(parsedImages.photos.photo, function(obj){return parseInt(obj.views)}).reverse()
       for(var i = 0; i<collection.length; i++){
-        appendImg(display, collection[i].url_l, 'div-images', 'img-responsive images', collection[i].id, collection[i].secret, collection[i].latitude, collection[i].longitude)
+        appendImg(display, collection[i].url_m, 'div-images', 'img-responsive images', collection[i].id, collection[i].secret, collection[i].latitude, collection[i].longitude, collection[i].url_l)
       }
       animate.setToggle(true)
       animate.scrollDown(e, '#img-container');
@@ -69,7 +74,7 @@ var image = (function(){
     }
   }
 
-  function appendImg(container, src, divClass, imgClass, photoId, secret, lat, lng){
+  function appendImg(container, src, divClass, imgClass, photoId, secret, lat, lng, srcLg){
     var div =  document.createElement('div');
     var img = document.createElement('img')
     div.className = divClass
@@ -80,6 +85,7 @@ var image = (function(){
     img.setAttribute('lng', lng)
     img.setAttribute('data-toggle', 'modal')
     img.setAttribute('data-target', '#myModal')
+    img.setAttribute('lg', srcLg)
     img.src = src
     div.appendChild(img)
     container.appendChild(div)
@@ -119,6 +125,7 @@ var image = (function(){
         if(data[i].label == 'ISO Speed'){ exif.iso = data[i].raw._content }
       }
     }
+    console.log(src)
 
     utility.clearDom(largeImg)
     appendExif(largeImg, src, exif)
@@ -143,7 +150,6 @@ var image = (function(){
     xhr.send(null);
     xhr.onload = function(){
       utility.clearDom(display)
-      $('#img-container').removeClass('text-center')
       var data = JSON.parse(xhr.responseText)
       var trending = data.photos.photo
       var sortedData = trending
@@ -191,13 +197,10 @@ var image = (function(){
     mediaAlign.appendChild(profile)
     mediaBody.appendChild(nameElement)
     nameElement.appendChild(name)
-
     media.appendChild(mediaAlign)
     media.appendChild(mediaBody)
     div2.appendChild(media)
-
     views.appendChild(viewText)
-
     date.appendChild(date_taken)
     div2.appendChild(date)
     div2.appendChild(views)
@@ -238,13 +241,21 @@ var image = (function(){
       $('#topTags').fadeOut('slow')
       $('#title').fadeOut('slow')
       $('#filter').removeClass('hidden');
+      $('#img-container').removeClass('text-center')
     } else if(id == 'search'){
-      $('#topTags').fadeOut('slow')
+      $('#topTags').addClass('hidden')
       $('#filter').addClass('hidden');
+      $('title').removeClass("hidden");
     } else if(id == 'explore'){
       $('#filter').addClass('hidden');
     }
   }
+
+  $(document).ready(function (){
+    console.log("run?")
+    $("#checkContainer").hide().show("slide", { direction: "left" }, 1800);
+
+  })
 
   return {
     appendImg : appendImg

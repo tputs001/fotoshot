@@ -8,7 +8,6 @@ app.use(express.static('./public/js'))
 app.use(express.static('./public/css'))
 
 app.post('/search', bodyParser, function(req, res){
-
   if(req.body.location == "nothing"){
     request({
       url: 'https://api.flickr.com/services/rest/?method=flickr.photos.search',
@@ -20,7 +19,7 @@ app.post('/search', bodyParser, function(req, res){
             content_type: 1,
             min_taken_date: 1325376000,
             per_page: 52,
-            extras: "url_l, views, tags, geo",
+            extras: "url_m, url_l, views, tags, geo",
             format: 'json',
             nojsoncallback: "?"
           }
@@ -30,7 +29,7 @@ app.post('/search', bodyParser, function(req, res){
   } else {
     var location = req.body.location.split(',')
     var newLocation = location.length > 2 ? location[0] + ',' + location[1] : location.join(',')
-    var p1 = new Promise(
+    var getWoe = new Promise(
       function(resolve, reject){
         request({
           url: 'http://where.yahooapis.com/v1/places.q('+ newLocation + ')',
@@ -47,7 +46,7 @@ app.post('/search', bodyParser, function(req, res){
         }
       )}
     )
-    p1.then(
+    getWoe.then(
       function(body){
         var woeID = JSON.parse(body).places.place[0].woeid
         request({
@@ -61,7 +60,7 @@ app.post('/search', bodyParser, function(req, res){
                 min_taken_date: 1325376000,
                 per_page: 52,
                 woe_id : woeID,
-                extras: "url_l, views, tags, geo",
+                extras: "url_m, url_l, views, tags, geo",
                 format: 'json',
                 nojsoncallback: "?"
               }

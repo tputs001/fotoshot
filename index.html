@@ -4,6 +4,7 @@
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css" rel="stylesheet">
     <link href="default.css" rel="stylesheet">
+    <title>Fotoshot</title>
   </head>
   <body>
     <nav class="navbar navbar-default navbar-fixed-top">
@@ -41,9 +42,30 @@
         <div class="col-md-12">
           <h1>Photography has never been easier.</h1>
           <div id="intro">
-            <h4>Part of taking great photos is being at the right place at the right time. Fotoshot provides all the information in one place.</h4>
+            <h4>Part of taking great photos is being at the right place at the right time.</h4>
           </div>
-          <a href="#" class="btn btn-lg btn-red">Learn More<span class="ti-arrow-right"></span></a>
+          <br>
+          <br>
+        </div>
+        <div id="checkContainer">
+          <div>
+            <i class="fa fa-2x fa-check"></i><span> Explore photos with a simple tag search.</span>
+          </div>
+          <div>
+            <i class="fa fa-2x fa-check"></i><span> Narrow down photos with a location. </span>
+          </div>
+          <div>
+            <i class="fa fa-2x fa-check"></i><span> One click direction convenience.</span>
+          </div>
+          <div>
+            <i class="fa fa-2x fa-check"></i><span> Exif data readily available.</span>
+          </div>
+          <div>
+            <i class="fa fa-2x fa-check"></i><span> Trending & popular tags.</span>
+          </div>
+          <div>
+            <i class="fa fa-2x fa-check"></i><span> Free!</span>
+          </div>
         </div>
         <div class="col-md-12 text-center page-div pageDown" id="down">
           <a href="#topTags" class="page-down pageDown">
@@ -56,41 +78,53 @@
       <h2 class = "text-center"> Popular Searches </h2>
       <div class="row popular">
         <div class="col-md-12">
-          <img class ="img-responsive center-block pop" src="./img/cityscape.jpg" tag="cityscape">
-          <div class="carousel-caption" tag="cityscape">
-            <h1>Cityscape</h1>
+          <div>
+            <img class ="img-responsive center-block pop" src="./img/cityscape.jpg" tag="cityscape">
+            <div class="carousel-caption" tag="cityscape">
+              <h1>Cityscape</h1>
+            </div>
           </div>
         </div>
         <div class="col-md-12">
-          <img class="img-responsive center-block pop"src="./img/landscape.jpg" tag="landscape">
-          <div class="carousel-caption" tag="landscape">
-            <h1>Landscape</h1>
+          <div>
+            <img class="img-responsive center-block pop"src="./img/landscape.jpg" tag="landscape">
+            <div class="carousel-caption" tag="landscape">
+              <h1>Landscape</h1>
+            </div>
           </div>
         </div>
         <div class="col-md-12">
-          <img class="img-responsive center-block pop" src="./img/sunset.jpg" tag="sunset">
-          <div class="carousel-caption" tag="sunset">
-            <h1>Sunset</h1>
+          <div>
+            <img class="img-responsive center-block pop" src="./img/sunset.jpg" tag="sunset">
+            <div class="carousel-caption" tag="sunset">
+              <h1>Sunset</h1>
+            </div>
           </div>
         </div>
       </div>
       <div class="row center-block popular">
         <div class="col-md-12">
-          <img class="img-responsive center-block pop" src="./img/waterfall.jpg" tag="waterfall">
-          <div class="carousel-caption" tag="waterfall">
-            <h1>Waterfalls</h1>
+          <div>
+            <img class="img-responsive center-block pop" src="./img/waterfall.jpg" tag="waterfall">
+            <div class="carousel-caption" tag="waterfall">
+              <h1>Waterfalls</h1>
+            </div>
           </div>
         </div>
         <div class="col-md-12">
-          <img class="img-responsive center-block pop" src="./img/stars.jpg" tag="stars">
-          <div class="carousel-caption" tag="stars">
-            <h1>Stars</h1>
+          <div>
+            <img class="img-responsive center-block pop" src="./img/stars.jpg" tag="stars">
+            <div class="carousel-caption" tag="stars">
+              <h1>Stars</h1>
+            </div>
           </div>
         </div>
         <div class="col-md-12">
-          <img class="img-responsive center-block pop" src="./img/animals.jpg" tag="animals">
-          <div class="carousel-caption" tag="animals">
-            <h1>Animals</h1>
+          <div>
+            <img class="img-responsive center-block pop" src="./img/animals.jpg" tag="animals">
+            <div class="carousel-caption" tag="animals">
+              <h1>Animals</h1>
+            </div>
           </div>
         </div>
       </div>
@@ -174,6 +208,13 @@
     </div>
     <div class="container" id="trend">
     </div>
+    <footer class="footer">
+      <hr>
+      <div class="container">
+        <p class="text-muted">2016 Fotoshot -  Tom Putsawatanachai
+        <br><a href="https://github.com/tputs001">Github</a></p>
+      </div>
+    </footer>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>

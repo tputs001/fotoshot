@@ -35,7 +35,7 @@ var gmap = (function(){
       utility.clearDom(display)
       for(var i = 0; i<markerObject[0].length; i++){
         setMarkers(markerObject[0][i].latitude, markerObject[0][i].longitude)
-        image.appendImg(display, markerObject[0][i].url_l, "div-images", "img-responsive map-images", markerObject[0][i].id, markerObject[0][i].secret, markerObject[0][i].latitude, markerObject[0][i].longitude)
+        image.appendImg(display, markerObject[0][i].url_m, "div-images", "img-responsive map-images", markerObject[0][i].id, markerObject[0][i].secret, markerObject[0][i].latitude, markerObject[0][i].longitude, markerObject[0][i].url_l)
       }
       animate.imageHover(markerTracker, map)
       extendBounds(map)
@@ -64,7 +64,7 @@ var gmap = (function(){
       });
     }
 
-    var p3 = new Promise(
+    var getDirections = new Promise(
       function(resolve, reject){
         var infoWindow = new google.maps.InfoWindow({map : map});
         if(navigator.geolocation){
@@ -83,7 +83,7 @@ var gmap = (function(){
         }
       }
     )
-    p3.then(function(currentPos){
+    getDirections.then(function(currentPos){
       calculateAndDisplayRoute(directionsService, directionsDisplay, currentPos);
     })
   }
@@ -110,8 +110,6 @@ var gmap = (function(){
       lat : parseFloat(lat),
       lng : parseFloat(lng)
     }
-
-    console.log(latLng)
   }
 
   function extendBounds(map){
