@@ -78,7 +78,7 @@ var gmap = (function(){
             resolve(currentPos)
           })
         } else {
-          alert("Something went wrong."))
+          alert("Something went wrong.")
         }
       }
     )
