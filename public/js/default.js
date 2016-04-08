@@ -38,7 +38,7 @@ var image = (function(){
     if(target.id == 'date'){ajaxTrending(e, 'date')}
     if(target.id == 'old'){ajaxTrending(e, 'old')}
     if(target.id == 'mapButton'){animate.toggleHidden('#location'); animate.toggleMap(e); state('explore')}
-    if(target.className == 'tags'){e, ajaxInput(target.attributes.tag, "")}
+    if(target.className == 'tags'){ajaxInput(e, target.attributes.tag, "")}
     if(utility.hasClass(e, 'pageDown')){animate.scrollDown(e, '#down')}
   })
 
