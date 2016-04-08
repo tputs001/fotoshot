@@ -180,7 +180,7 @@ var image = (function(){
     var flickr = document.createElement('h5')
     var flickrProfile = document.createElement('a')
     var flickrProfileText = document.createTextNode('My Flickr Profile')
-    
+
     profile.className = 'img-circle media-object profile'
     profile.src = "http://farm" + object.iconfarm + ".staticflickr.com/" + object.iconserver + "/buddyicons/" + object.owner + ".jpg"
     img.src = object.url_l;
@@ -246,10 +246,6 @@ var image = (function(){
       $('#filter').addClass('hidden');
     }
   }
-
-  $(document).ready(function (){
-    $("#checkContainer").hide().show("slide", { direction: "left" }, 1800);
-  })
 
   return {
     appendImg : appendImg

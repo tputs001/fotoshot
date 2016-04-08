@@ -59,6 +59,14 @@
   font-size: 22;
 }
 
+#intro {
+  display: none;
+}
+
+#down {
+  display: none;
+}
+
 .image-lg {
   width: 800px;
   height: 600px;

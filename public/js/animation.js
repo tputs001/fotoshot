@@ -66,6 +66,12 @@ var animate = (function(){
     map.panTo(coordinate)
   }
 
+  $(document).ready(function (){
+    $("#checkContainer").show("slide", { direction: "left" }, 1500);
+    $("#intro").show("slide", { direction: "right" }, 1500);
+    $('#down').fadeIn(1500);
+  })
+
   return {
     scrollDown : scrollDown,
     toggleMap : toggleMap,
