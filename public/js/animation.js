@@ -62,7 +62,7 @@ var animate = (function(){
   }
 
   function zoomIn(map, coordinate){
-    map.setZoom(9);
+    map.setZoom(11);
     map.panTo(coordinate)
   }
 
