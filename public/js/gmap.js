@@ -93,7 +93,7 @@ var gmap = (function(){
       position: myLatlng,
       title: "images!",
       map: map,
-      icon: {url:"./img/redpin.png"}
+      icon: {url:"./img/reddot.png"}
     })
     markerPosition.push(marker.position)
     markerTracker.push(marker)

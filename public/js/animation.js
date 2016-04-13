@@ -45,8 +45,8 @@ var animate = (function(){
       },
       function() {
         var index = $('.map-images').index(this);
-        markerPosition[index].setIcon('../img/redpin.png');
-        gmap.extendBounds(map)
+        markerPosition[index].setIcon('../img/reddot.png');
+        // gmap.extendBounds(map)
       }
     )
   }
@@ -62,7 +62,7 @@ var animate = (function(){
   }
 
   function zoomIn(map, coordinate){
-    map.setZoom(11);
+    map.setZoom(9);
     map.panTo(coordinate)
   }
 
