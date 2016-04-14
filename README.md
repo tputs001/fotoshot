@@ -2,7 +2,7 @@
 
 A website built with Javascript to provide users with the ability to search through popular images by tags based on the user's location input.
 
-[Live Demo](https:fotoshot.herokuapp.com)
+[Live Demo](https://fotoshot.herokuapp.com/)
 
 ![screen shot 2016-04-13 at 12 43 38 pm](https://cloud.githubusercontent.com/assets/528146/14508378/ff8dc660-017b-11e6-8192-69adf0abb0c2.png)
 
