@@ -141,8 +141,8 @@
 }
 
 .page-div {
-  position: absolute;
-  top: 90%;
+  position: relative;
+  top: 190px;
   left: -8px;
 }
 
