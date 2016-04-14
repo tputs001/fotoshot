@@ -1,16 +1,14 @@
+# Fotoshot
+
+A website built with Javascript to provide users with the ability to search through popular images by tags based on the user's location input.
+
+[Live Demo](https:fotoshot.herokuapp.com)
+
 ![screen shot 2016-04-13 at 12 43 38 pm](https://cloud.githubusercontent.com/assets/528146/14508378/ff8dc660-017b-11e6-8192-69adf0abb0c2.png)
 
 ![screen shot 2016-04-13 at 12 43 07 pm](https://cloud.githubusercontent.com/assets/528146/14508375/ff892fb0-017b-11e6-93f2-9d67878b47dd.png)
 
 ![screen shot 2016-04-13 at 12 45 16 pm](https://cloud.githubusercontent.com/assets/528146/14508376/ff8a62f4-017b-11e6-8e60-16054e4f4a26.png)
-
-# Fotoshot
-
-A website built with Javascript to provide users with the ability to search through popular images by tags based on the user's location input.
-
-Live Demo
-[Fotoshot](https:fotoshot.herokuapp.com)
-
 
 ##Functionality includes:
 1. Users can search photos based on tags.
