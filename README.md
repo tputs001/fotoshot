@@ -8,6 +8,10 @@
 
 A website built with Javascript to provide users with the ability to search through popular images by tags based on the user's location input.
 
+Live Demo
+[Fotoshot](https:fotoshot.herokuapp.com)
+
+
 ##Functionality includes:
 1. Users can search photos based on tags.
 2. Users can search photos and input a location to narrow down the search.
